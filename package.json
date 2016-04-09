@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Plot time series json data in the cli",
   "main": "src/index.js",
+  "bin": {
+    "xy": "src/cli.js"
+  },
   "scripts": {
     "test": "mocha tests/**/*.test.js"
   },
