@@ -1,9 +1,9 @@
 'use strict';
 let _ = require('lodash');
 let es = require('event-stream');
+let streamEach = es.map;
 let get = _.get;
 let keys = _.keys;
-let streamEach = es.map;
 
 
 function conj() {

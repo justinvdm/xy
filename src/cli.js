@@ -13,6 +13,10 @@ let noop = _.noop;
 let args = cli
   .usage('Usage: $0 [options]')
   .help('help')
+  .option('n', {
+    defaults: defaults.n,
+    describe: 'Displays the last n datapoints'
+  })
   .option('x', {
     defaults: defaults.x,
     describe: `Property name for x values`
