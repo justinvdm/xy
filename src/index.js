@@ -12,14 +12,9 @@ function xy(opts) {
   let state = createState();
 
   return function next(chunk) {
-    chunk = chunk.map(parse);
-    state = update(state, chunk, opts);
+    state = update(state, parseInput(chunk, opts), opts);
     opts.ui.update(ui, state, opts);
   };
-
-  function parse(d) {
-    return parseInput(d, opts);
-  }
 }
 
 

@@ -6,6 +6,7 @@ let _ = require('./utils');
 let xy = require('./index');
 let defaults = require('./defaults')();
 let es = require('event-stream');
+let parse = require('ldjson-stream').parse;
 let map = es.mapSync;
 let noop = _.noop;
 
@@ -25,17 +26,8 @@ let args = cli
 
 
 process.stdin
-  .pipe(map(parse))
+  .pipe(parse({strict: false}))
   .pipe(map(xy(args)));
-
-
-function parse(s) {
-  return _(s.toString())
-    .split('\n')
-    .compact()
-    .map(JSON.parse)
-    .value();
-}
 
 
 setInterval(noop, Math.POSITIVE_INFINITY);
