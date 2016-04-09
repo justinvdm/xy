@@ -1,6 +1,6 @@
 {
   "name": "@justinvdm/xy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "draw a line chart from piped in json data in the command line",
   "main": "src/index.js",
   "bin": {
