@@ -8,14 +8,13 @@ let defaults = require('./defaults')();
 let es = require('event-stream');
 let map = es.mapSync;
 let noop = _.noop;
-let toString = _.toString;
 
 
 let args = cli
   .usage('Usage: $0 [options]')
   .help('help')
   .option('x', {
-    default: 'x',
+    defaults: defaults.x,
     describe: `Property name for x values`
   })
   .argv;
