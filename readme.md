@@ -7,7 +7,7 @@ draw a line chart from piped in json data in the command line.
 ## install
 
 ```
-$ npm install -g justinvdm/xy
+$ npm install -g @justinvdm/xy
 ```
 
 
