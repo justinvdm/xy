@@ -4,7 +4,7 @@
   "description": "Plot time series json data in the cli",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha xy.test.js"
+    "test": "mocha tests/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,12 @@
   "bugs": {
     "url": "https://github.com/justinvdm/xy/issues"
   },
-  "homepage": "https://github.com/justinvdm/xy"
+  "homepage": "https://github.com/justinvdm/xy",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^3.5.5",
+    "event-stream": "^3.3.2",
+    "lodash": "^4.9.0",
+    "yargs": "^4.4.0"
+  }
 }
