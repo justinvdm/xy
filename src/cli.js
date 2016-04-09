@@ -16,7 +16,7 @@ let args = cli
   .help('help')
   .option('x', {
     default: 'x',
-    describe: `Property name for timestamp values`
+    describe: `Property name for x values`
   })
   .argv;
 
