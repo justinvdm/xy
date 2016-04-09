@@ -1,7 +1,7 @@
 {
   "name": "xy",
   "version": "0.0.0",
-  "description": "Plot time series json data in the cli",
+  "description": "draw a line chart from piped in json data in the command line",
   "main": "src/index.js",
   "bin": {
     "xy": "src/cli.js"
