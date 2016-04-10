@@ -3,6 +3,7 @@ let d3 = require('d3');
 let _ = require('./utils');
 let map = _.map;
 let group = _.group;
+let toString = _.toString;
 let parseDate = _.parseDate;
 let createScreen = require('blessed').screen;
 let createLine = require('blessed-contrib').line;
@@ -56,7 +57,7 @@ function parse(ui, state, opts) {
 function parseXValues(ui, values, opts) {
   return opts.time
     ? parseTimeValues(ui, values, opts)
-    : values;
+    : values.map(toString);
 }
 
 
