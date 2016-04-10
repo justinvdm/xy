@@ -19,7 +19,7 @@ let args = cli
     describe: 'Displays the last n datapoints'
   })
   .option('x', {
-    defaults: defaults.x,
+    default: defaults.x,
     describe: `Property name for x values`
   })
   .argv;
