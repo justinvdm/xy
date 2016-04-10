@@ -40,8 +40,14 @@ function group(values, xName) {
 }
 
 
+function parseDate(v) {
+  return new Date(v);
+}
+
+
 module.exports = _.mixin({
   conj,
   streamFilter,
-  group
+  group,
+  parseDate
 });

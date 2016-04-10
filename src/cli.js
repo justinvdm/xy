@@ -18,6 +18,11 @@ let args = cli
     defaults: defaults.n,
     describe: 'Displays the last n datapoints'
   })
+  .option('time', {
+    alias: 't',
+    type: 'boolean',
+    describe: `Format x axis values from unix epoch milliseconds to date strings`
+  })
   .option('x', {
     default: defaults.x,
     describe: `Property name for x values`

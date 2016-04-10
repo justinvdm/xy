@@ -1,14 +1,29 @@
 'use strict';
+let d3 = require('d3');
 let _ = require('./utils');
 let map = _.map;
 let group = _.group;
+let parseDate = _.parseDate;
 let createScreen = require('blessed').screen;
 let createLine = require('blessed-contrib').line;
+
+const ftime = {
+  start: d3.time.format('%y-%m-%d'),
+  milliseconds: d3.time.format('.%L'),
+  seconds: d3.time.format(':%S'),
+  minutes: d3.time.format('%I:%M'),
+  hours: d3.time.format('%I %p'),
+  fallback: d3.time.format('%y-%m')
+};
 
 
 function create(opts) {
   let screen = createScreen();
-  let line = createLine({showLegend: opts.showLegend});
+
+  let line = createLine({
+    showLegend: opts.showLegend
+  });
+
   screen.append(line);
 
   screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
@@ -16,7 +31,8 @@ function create(opts) {
   return {
     line,
     screen,
-    colors: (opts.colors || randomColors)()
+    colors: (opts.colors || randomColors)(),
+    timeFormatter: timeFormatter
   };
 }
 
@@ -30,10 +46,24 @@ function update(ui, state, opts) {
 function parse(ui, state, opts) {
   return map(group(state.values, 'x'), d => ({
     title: d.name,
-    x: map(d.values, 'x'),
+    x: parseXValues(ui, map(d.values, 'x'), opts),
     y: map(d.values, 'y'),
     style: {line: ui.colors(d.name)}
   }));
+}
+
+
+function parseXValues(ui, values, opts) {
+  return opts.time
+    ? parseTimeValues(ui, values, opts)
+    : values;
+}
+
+
+function parseTimeValues(ui, values, opts) {
+  return values
+    .map(parseDate)
+    .map(ui.timeFormatter(values));
 }
 
 
@@ -54,6 +84,25 @@ function randomColor() {
     Math.random() *255,
     Math.random() *255
   ];
+}
+
+
+function timeFormatter(values) {
+  return (d, i) => {
+    let v = timeDiff(d, i, values);
+    if (v < 1) return ftime.start(d);
+    else if (v < 1000) return ftime.milliseconds(d);
+    else if (v < 1000 * 60) return ftime.seconds(d);
+    else if (v < 1000 * 60 * 24) return ftime.hours(d);
+    else return ftime.fallback(d);
+  };
+}
+
+
+function timeDiff(d, i, values) {
+  return i > 0
+    ? +d - +values[i - 1]
+    : 0;
 }
 
 
