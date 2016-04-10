@@ -18,7 +18,9 @@ $ xy --help
 Usage: xy [options]
 
 Options:
-  --help  Show help                                                    [boolean]
-  -n      Displays the last n datapoints
-  -x      Property name for x values
+  --help      Show help                                                [boolean]
+  -n          Displays the last n datapoints
+  --time, -t  Format x axis values from unix epoch milliseconds to date strings
+                                                                       [boolean]
+  -x          Property name for x values                          [default: "x"]
 ```
