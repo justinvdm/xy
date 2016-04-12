@@ -94,7 +94,8 @@ function timeFormatter(values) {
     if (v < 1) return ftime.start(d);
     else if (v < 1000) return ftime.milliseconds(d);
     else if (v < 1000 * 60) return ftime.seconds(d);
-    else if (v < 1000 * 60 * 24) return ftime.hours(d);
+    else if (v < 1000 * 60 * 60) return ftime.minutes(d);
+    else if (v < 1000 * 60 * 60 * 24) return ftime.hours(d);
     else return ftime.fallback(d);
   };
 }
