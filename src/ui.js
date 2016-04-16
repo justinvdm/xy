@@ -12,7 +12,7 @@ const ftime = {
   start: d3.time.format('%y-%m-%d'),
   milliseconds: d3.time.format('.%L'),
   seconds: d3.time.format(':%S'),
-  minutes: d3.time.format('%I:%M'),
+  minutes: d3.time.format('%H:%M '),
   hours: d3.time.format('%I %p'),
   fallback: d3.time.format('%y-%m')
 };
