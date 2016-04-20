@@ -14,7 +14,7 @@ const ftime = {
   seconds: d3.time.format(':%S'),
   minutes: d3.time.format('%H:%M '),
   hours: d3.time.format('%I %p'),
-  fallback: d3.time.format('%y-%m')
+  fallback: d3.time.format('%y-%m-%d')
 };
 
 
