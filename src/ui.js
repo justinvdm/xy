@@ -7,6 +7,8 @@ let toString = _.toString;
 let parseDate = _.parseDate;
 let createScreen = require('blessed').screen;
 let createLine = require('blessed-contrib').line;
+let omitBy = require('lodash/omitBy');
+let isNull = require('lodash/isNull');
 
 const ftime = {
   start: d3.time.format('%y-%m-%d'),
@@ -21,9 +23,11 @@ const ftime = {
 function create(opts) {
   let screen = createScreen();
 
-  let line = createLine({
-    showLegend: opts.showLegend
-  });
+  let line = createLine(omitBy({
+    showLegend: opts.showLegend,
+    minY: opts.min,
+    maxY: opts.max
+  }, isNull));
 
   screen.append(line);
 
