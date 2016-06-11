@@ -6,5 +6,6 @@ module.exports = () => ({
   max: null,
   time: false,
   key: null,
-  color: null
+  color: null,
+  set: []
 });

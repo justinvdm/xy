@@ -2,7 +2,7 @@ const d3 = require('d3');
 const parseColor = require('parse-color');
 const { screen: createScreen } = require('blessed');
 const { line: createLine } = require('blessed-contrib');
-const { flow: o } = require('./utils');
+const { flow } = require('./utils');
 
 const {
   map,
@@ -33,7 +33,7 @@ function create(opts) {
     maxY: opts.max
   }, isNull));
 
-  const colors = o([
+  const colors = flow([
     createColors(opts),
     parseColorRgb
   ]);
@@ -52,9 +52,12 @@ function create(opts) {
 
 
 function createColors(opts) {
-  return isNull(opts.color)
+  const colors = isNull(opts.color)
     ? d3.scale.category10()
     : d3.scale.ordinal().range(castArray(opts.color));
+
+  return colors
+    .domain(castArray(opts.set));
 }
 
 
@@ -65,7 +68,7 @@ function update(ui, state, opts) {
 
 
 function parse(ui, state, opts) {
-  return Array.from(state.sets)
+  return state.sets
     .map(({values, key}) => ({
       x: parseXValues(ui, map(values, 'x'), opts),
       y: map(values, 'y'),

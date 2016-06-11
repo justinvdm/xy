@@ -14,44 +14,49 @@ const args = cli
   .help('help')
   .option('n', {
     default: defaults.n,
-    describe: 'Displays the last n datapoints'
+    describe: 'displays the last n datapoints'
   })
   .option('slurp', {
     alias: 's',
     type: 'boolean',
-    describe: 'Read the entire input stream and draw just once'
+    describe: 'read the entire input stream and draw just once'
   })
   .option('color', {
     alias: 'c',
     default: defaults.color,
-    describe: 'css color string(s) to use for line(s)'
+    describe: 'css color string to use for each set'
+  })
+  .option('set', {
+    alias: 'S',
+    default: defaults.set,
+    describe: 'declare a set by its key to match it to a color'
   })
   .option('time', {
     alias: 't',
     type: 'boolean',
-    describe: 'Format x values from unix epoch milliseconds to date strings'
+    describe: 'format x values from unix epoch milliseconds to date strings'
   })
   .option('x', {
     default: defaults.x,
-    describe: 'Property name for x values'
+    describe: 'property name for x values'
   })
   .option('y', {
     default: defaults.y,
-    describe: 'Property name for y values'
+    describe: 'property name for y values'
   })
   .option('key', {
     alias: 'k',
-    describe: 'Property name to identify the set this datum belongs to'
+    describe: 'property name to identify the set each datum belongs to'
   })
   .option('min', {
     alias: 'm',
     default: defaults.min,
-    describe: 'Minimum y value'
+    describe: 'minimum y value'
   })
   .option('max', {
     alias: 'M',
     default: defaults.max,
-    describe: 'Maximum y value'
+    describe: 'maximum y value'
   })
   .argv;
 
