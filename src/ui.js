@@ -30,7 +30,8 @@ function create(opts) {
   const line = createLine(omitBy({
     showLegend: opts.showLegend,
     minY: opts.min,
-    maxY: opts.max
+    maxY: opts.max,
+    style: {text: 7}
   }, isNull));
 
   const colors = flow([
