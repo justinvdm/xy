@@ -31,7 +31,7 @@ function create(opts) {
     showLegend: opts.showLegend,
     minY: opts.min,
     maxY: opts.max,
-    style: {text: 7}
+    style: {text: 8}
   }, isNull));
 
   const colors = flow([
