@@ -3,7 +3,6 @@ let ui = require('./ui');
 let _ = require('./utils');
 let defaults = require('./defaults');
 let conj = _.conj;
-let omit = _.omit;
 
 
 function xy(opts) {
@@ -42,7 +41,10 @@ function update(state, chunk, opts) {
 
 
 function parseInput(d, opts) {
-  return conj(omit(d, opts.x), {x: d[opts.x]});
+  return {
+    x: d[opts.x],
+    y: d[opts.y]
+  };
 }
 
 

@@ -27,6 +27,10 @@ let args = cli
     default: defaults.x,
     describe: `Property name for x values`
   })
+  .option('y', {
+    default: defaults.y,
+    describe: `Property name for y values`
+  })
   .option('min', {
     alias: 'm',
     default: defaults.min,
