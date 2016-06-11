@@ -6,6 +6,7 @@ let _ = require('./utils');
 let xy = require('./index');
 let defaults = require('./defaults')();
 let es = require('event-stream');
+let concat = require('concat-stream');
 let parse = require('ldjson-stream').parse;
 let map = es.mapSync;
 let noop = _.noop;
@@ -17,6 +18,11 @@ let args = cli
   .option('n', {
     defaults: defaults.n,
     describe: 'Displays the last n datapoints'
+  })
+  .option('slurp', {
+    alias: 's',
+    type: 'boolean',
+    describe: 'Read the entire input stream and draw just once'
   })
   .option('time', {
     alias: 't',
@@ -44,9 +50,11 @@ let args = cli
   .argv;
 
 
-process.stdin
-  .pipe(parse({strict: false}))
-  .pipe(map(xy(args)));
+  process.stdin
+    .pipe(parse({strict: false}))
+    .pipe(args.slurp
+      ? concat(xy(args))
+      : map(xy(args)))
 
 
 setInterval(noop, Math.POSITIVE_INFINITY);

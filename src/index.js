@@ -1,8 +1,7 @@
 'use strict';
 let ui = require('./ui');
-let _ = require('./utils');
 let defaults = require('./defaults');
-let conj = _.conj;
+let { conj, castArray } = require('./utils');
 
 
 function xy(opts) {
@@ -11,7 +10,7 @@ function xy(opts) {
   let state = createState();
 
   return function next(chunk) {
-    state = update(state, parseInput(chunk, opts), opts);
+    state = update(state, parseChunk(chunk, opts), opts);
     opts.ui.update(ui, state, opts);
   };
 }
@@ -37,6 +36,12 @@ function update(state, chunk, opts) {
       .concat(chunk)
       .slice(-opts.n)
   });
+}
+
+
+function parseChunk(chunk, opts) {
+  return castArray(chunk)
+    .map(d => parseInput(d, opts));
 }
 
 
