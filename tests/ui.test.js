@@ -1,20 +1,20 @@
-'use strict';
-let assert = require('assert');
-let ui = require('../src/ui');
-let map = require('../src/utils').map;
-let parseOpts = require('../src').parseOpts;
+const assert = require('assert');
+const ui = require('../src/ui');
+const { map, noop } = require('../src/utils');
+const { parseOpts } = require('../src');
 
 
 describe("ui", () => {
   describe("parse", () => {
-    it("should parse the given state into something blessed understands", () => {
+    it("should parse the given state into something blessed understands",
+    () => {
       let i = 0;
 
-      let uiState = {
+      const uiState = {
         colors: () => i++
       };
 
-      let res = ui.parse(uiState, {
+      const res = ui.parse(uiState, {
         sets: [{
           key: 'y1',
           values: [{
@@ -22,7 +22,7 @@ describe("ui", () => {
             y: 2
           }, {
             x: 25,
-            y: 8,
+            y: 8
           }, {
             x: 30,
             y: 16
@@ -54,14 +54,12 @@ describe("ui", () => {
     });
 
     it("should support time formatting", () => {
-      let i = 0;
-
-      let uiState = {
-        colors: () => i++,
+      const uiState = {
+        colors: noop,
         timeFormatter: () => x => `t${+x}`
       };
 
-      let res = ui.parse(uiState, {
+      const res = ui.parse(uiState, {
         sets: [{
           key: '__default',
           values: [{
@@ -72,7 +70,7 @@ describe("ui", () => {
             y: 6
           }, {
             x: 25,
-            y: 8,
+            y: 8
           }, {
             x: 30,
             y: 16
@@ -81,7 +79,7 @@ describe("ui", () => {
       }, parseOpts({time: true}));
 
       assert.deepEqual(map(res, 'x'), [
-        ['t21', 't23', 't25', 't30'],
+        ['t21', 't23', 't25', 't30']
       ]);
     });
   });

@@ -1,13 +1,12 @@
-'use strict';
-let assert = require('assert');
-let xy = require('../src');
+const assert = require('assert');
+const xy = require('../src');
 
 
 describe("xy", () => {
   it("should draw each given datapoint", () => {
-    let draws = [];
+    const draws = [];
 
-    let chart = xy({
+    const chart = xy({
       x: 't',
       ui: {
         create: () => ({}),
@@ -110,9 +109,9 @@ describe("xy", () => {
   });
 
   it("should support multiple metrics", () => {
-    let draws = [];
+    const draws = [];
 
-    let chart = xy({
+    const chart = xy({
       x: 't',
       key: 'k',
       ui: {
@@ -160,7 +159,7 @@ describe("xy", () => {
           x: 21,
           y: 2
         }]
-      } , {
+      }, {
         key: 'y2',
         values: [{
           x: 23,
@@ -174,7 +173,7 @@ describe("xy", () => {
           x: 21,
           y: 2
         }]
-      } , {
+      }, {
         key: 'y2',
         values: [{
           x: 23,
@@ -194,7 +193,7 @@ describe("xy", () => {
           x: 30,
           y: 3
         }]
-      } , {
+      }, {
         key: 'y2',
         values: [{
           x: 23,
@@ -208,9 +207,9 @@ describe("xy", () => {
   });
 
   it("should support culling old datapoints", () => {
-    let draws = [];
+    const draws = [];
 
-    let chart = xy({
+    const chart = xy({
       x: 't',
       n: 3,
       ui: {
@@ -311,9 +310,9 @@ describe("xy", () => {
   });
 
   it("should allow chunks of data to be given", () => {
-    let draws = [];
+    const draws = [];
 
-    let chart = xy({
+    const chart = xy({
       x: 't',
       ui: {
         create: () => ({}),

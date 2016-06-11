@@ -1,13 +1,12 @@
-'use strict';
-let ui = require('./ui');
-let defaults = require('./defaults');
-let { isNull, get, map, each, conj, castArray, groupBy } = require('./utils');
+const ui = require('./ui');
+const defaults = require('./defaults');
+const { isNull, get, map, each, conj, castArray, groupBy } = require('./utils');
 
 
 function xy(opts) {
   opts = parseOpts(opts);
-  let ui = opts.ui.create(opts);
-  let state = createState();
+  const ui = opts.ui.create(opts);
+  const state = createState();
 
   return function next(chunk) {
     update(state, chunk, opts);
@@ -47,7 +46,10 @@ function serialize(state) {
 
 
 function serializeValue({x, y}) {
-  return {x, y};
+  return {
+    x,
+    y
+  };
 }
 
 

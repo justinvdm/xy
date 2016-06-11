@@ -1,0 +1,33 @@
+# vim:ft=yaml
+
+extends: airbnb
+env:
+  node: true
+rules:
+  no-eq-null: 2
+  no-unused-vars: [2, args: none]
+  no-bitwise: 2
+  eqeqeq: 2
+  guard-for-in: 2
+  no-extend-native: 2
+  no-caller: 2
+  max-depth: [2, 2]
+  linebreak-style: 2
+  no-undef: 2
+  no-unused-expressions: 2
+  comma-dangle: [2, never]
+  import/no-unresolved: 0
+  no-param-reassign: 0
+  no-else-return: 0
+  no-shadow: 0
+  no-use-before-define: 0
+  object-shadow: 0
+  object-curly-spacing: 0
+  brace-style: 0
+  quotes: 0
+  arrow-body-style: 0
+  indent: 0
+  max-len: [2, code: 80]
+  object-property-newline: error
+  no-underscore-dangle: 0
+  no-confusing-arrow: 0

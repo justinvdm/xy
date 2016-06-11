@@ -1,6 +1,4 @@
-'use strict';
 const _ = require('lodash');
-const es = require('event-stream');
 const { extend } = _;
 
 

@@ -1,14 +1,8 @@
-'use strict';
-let d3 = require('d3');
-let _ = require('./utils');
-let map = _.map;
-let group = _.group;
-let toString = _.toString;
-let parseDate = _.parseDate;
-let createScreen = require('blessed').screen;
-let createLine = require('blessed-contrib').line;
-let omitBy = require('lodash/omitBy');
-let isNull = require('lodash/isNull');
+const d3 = require('d3');
+const { map, toString, parseDate, omitBy, isNull } = require('./utils');
+const { screen: createScreen } = require('blessed');
+const { line: createLine } = require('blessed-contrib').line;
+
 
 const ftime = {
   start: d3.time.format('%y-%m-%d'),
@@ -21,9 +15,9 @@ const ftime = {
 
 
 function create(opts) {
-  let screen = createScreen();
+  const screen = createScreen();
 
-  let line = createLine(omitBy({
+  const line = createLine(omitBy({
     showLegend: opts.showLegend,
     minY: opts.min,
     maxY: opts.max
@@ -73,12 +67,12 @@ function parseTimeValues(ui, values, opts) {
 
 
 function randomColors() {
-  let lookup = {};
+  const lookup = {};
 
   return function nextColor(k) {
     return k in lookup
       ? lookup[k]
-      : lookup[k] = randomColor();
+      : (lookup[k] = randomColor());
   };
 }
 
@@ -86,15 +80,15 @@ function randomColors() {
 function randomColor() {
   return [
     Math.random() * 255,
-    Math.random() *255,
-    Math.random() *255
+    Math.random() * 255,
+    Math.random() * 255
   ];
 }
 
 
 function timeFormatter(values) {
   return (d, i) => {
-    let v = timeDiff(d, i, values);
+    const v = timeDiff(d, i, values);
     if (v < 1) return ftime.start(d);
     else if (v < 1000) return ftime.milliseconds(d);
     else if (v < 1000 * 60) return ftime.seconds(d);
