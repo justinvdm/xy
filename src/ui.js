@@ -1,7 +1,17 @@
 const d3 = require('d3');
-const { map, toString, parseDate, omitBy, isNull } = require('./utils');
+const parseColor = require('parse-color');
 const { screen: createScreen } = require('blessed');
-const { line: createLine } = require('blessed-contrib').line;
+const { line: createLine } = require('blessed-contrib');
+const { flow: o } = require('./utils');
+
+const {
+  map,
+  toString,
+  parseDate,
+  omitBy,
+  isNull,
+  castArray
+} = require('./utils');
 
 
 const ftime = {
@@ -23,6 +33,11 @@ function create(opts) {
     maxY: opts.max
   }, isNull));
 
+  const colors = o([
+    createColors(opts),
+    parseColorRgb
+  ]);
+
   screen.append(line);
 
   screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
@@ -30,9 +45,16 @@ function create(opts) {
   return {
     line,
     screen,
-    timeFormatter,
-    colors: (opts.colors || randomColors)()
+    colors,
+    timeFormatter
   };
+}
+
+
+function createColors(opts) {
+  return isNull(opts.color)
+    ? d3.scale.category10()
+    : d3.scale.ordinal().range(castArray(opts.color));
 }
 
 
@@ -66,26 +88,6 @@ function parseTimeValues(ui, values, opts) {
 }
 
 
-function randomColors() {
-  const lookup = {};
-
-  return function nextColor(k) {
-    return k in lookup
-      ? lookup[k]
-      : (lookup[k] = randomColor());
-  };
-}
-
-
-function randomColor() {
-  return [
-    Math.random() * 255,
-    Math.random() * 255,
-    Math.random() * 255
-  ];
-}
-
-
 function timeFormatter(values) {
   return (d, i) => {
     const v = timeDiff(d, i, values);
@@ -103,6 +105,11 @@ function timeDiff(d, i, values) {
   return i > 0
     ? +d - +values[i - 1]
     : 0;
+}
+
+
+function parseColorRgb(s) {
+  return parseColor(s).rgb;
 }
 
 

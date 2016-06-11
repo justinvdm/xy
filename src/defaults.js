@@ -5,5 +5,6 @@ module.exports = () => ({
   min: null,
   max: null,
   time: false,
-  key: null
+  key: null,
+  color: null
 });

@@ -13,13 +13,18 @@ const args = cli
   .usage('Usage: $0 [options]')
   .help('help')
   .option('n', {
-    defaults: defaults.n,
+    default: defaults.n,
     describe: 'Displays the last n datapoints'
   })
   .option('slurp', {
     alias: 's',
     type: 'boolean',
     describe: 'Read the entire input stream and draw just once'
+  })
+  .option('color', {
+    alias: 'c',
+    default: defaults.color,
+    describe: 'css color string(s) to use for line(s)'
   })
   .option('time', {
     alias: 't',
