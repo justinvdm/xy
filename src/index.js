@@ -1,7 +1,7 @@
 'use strict';
 let ui = require('./ui');
 let defaults = require('./defaults');
-let { conj, castArray } = require('./utils');
+let { isNull, get, map, each, conj, castArray, groupBy } = require('./utils');
 
 
 function xy(opts) {
@@ -10,8 +10,8 @@ function xy(opts) {
   let state = createState();
 
   return function next(chunk) {
-    state = update(state, parseChunk(chunk, opts), opts);
-    opts.ui.update(ui, state, opts);
+    update(state, chunk, opts);
+    opts.ui.update(ui, serialize(state), opts);
   };
 }
 
@@ -24,18 +24,44 @@ function parseOpts(opts) {
 
 
 function createState() {
-  return {
-    values: []
-  };
+  return {sets: new Map()};
 }
 
 
 function update(state, chunk, opts) {
-  return conj(state, {
-    values: state.values
-      .concat(chunk)
-      .slice(-opts.n)
-  });
+  chunk = parseChunk(chunk, opts);
+  chunk = groupBy(chunk, 'key');
+  each(chunk, (values, k) => setPush(state.sets, k, values, opts));
+}
+
+
+function serialize(state) {
+  return {
+    sets: Array.from(state.sets)
+      .map(([key, values]) => ({
+        key,
+        values: map(values, serializeValue)
+      }))
+  };
+}
+
+
+function serializeValue({x, y}) {
+  return {x, y};
+}
+
+
+function setPush(sets, k, values, opts) {
+  sets.set(k, setGet(sets, k)
+    .concat(values)
+    .slice(-opts.n));
+}
+
+
+function setGet(sets, k) {
+  return sets.has(k)
+    ? sets.get(k)
+    : [];
 }
 
 
@@ -48,7 +74,10 @@ function parseChunk(chunk, opts) {
 function parseInput(d, opts) {
   return {
     x: d[opts.x],
-    y: d[opts.y]
+    y: d[opts.y],
+    key: !isNull(opts.key)
+      ? get(d, opts.key, '__default')
+      : '__default'
   };
 }
 

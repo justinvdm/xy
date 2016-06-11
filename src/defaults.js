@@ -8,6 +8,6 @@ module.exports = function() {
     min: null,
     max: null,
     time: false,
-    showLegend: false
+    key: null
   };
 };

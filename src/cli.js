@@ -37,6 +37,10 @@ let args = cli
     default: defaults.y,
     describe: `Property name for y values`
   })
+  .option('key', {
+    alias: 'k',
+    describe: `Property name to identify the set this datum belongs to`
+  })
   .option('min', {
     alias: 'm',
     default: defaults.min,

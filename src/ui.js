@@ -36,8 +36,8 @@ function create(opts) {
   return {
     line,
     screen,
-    colors: (opts.colors || randomColors)(),
-    timeFormatter: timeFormatter
+    timeFormatter,
+    colors: (opts.colors || randomColors)()
   };
 }
 
@@ -49,12 +49,12 @@ function update(ui, state, opts) {
 
 
 function parse(ui, state, opts) {
-  return map(group(state.values, 'x'), d => ({
-    title: d.name,
-    x: parseXValues(ui, map(d.values, 'x'), opts),
-    y: map(d.values, 'y'),
-    style: {line: ui.colors(d.name)}
-  }));
+  return Array.from(state.sets)
+    .map(({values, key}) => ({
+      x: parseXValues(ui, map(values, 'x'), opts),
+      y: map(values, 'y'),
+      style: {line: ui.colors(key)}
+    }));
 }
 
 
