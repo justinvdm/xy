@@ -2,7 +2,7 @@ const d3 = require('d3');
 const parseColor = require('parse-color');
 const { screen: createScreen } = require('blessed');
 const { line: createLine } = require('blessed-contrib');
-const { flow } = require('./utils');
+const { flow, toNumber } = require('./utils');
 
 const {
   map,
@@ -72,7 +72,7 @@ function parse(ui, state, opts) {
   return state.sets
     .map(({values, key}) => ({
       x: parseXValues(ui, map(values, 'x'), opts),
-      y: map(values, 'y'),
+      y: parseYValues(ui, map(values, 'y'), opts),
       style: {line: ui.colors(key)}
     }));
 }
@@ -84,6 +84,9 @@ function parseXValues(ui, values, opts) {
     : values.map(toString);
 }
 
+function parseYValues(ui, values, opts) {
+  return values.map(toNumber);
+}
 
 function parseTimeValues(ui, values, opts) {
   return values

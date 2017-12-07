@@ -7,6 +7,7 @@ const concat = require('concat-stream');
 const { noop } = require('./utils');
 const { mapSync: map } = require('event-stream');
 const { parse } = require('ldjson-stream');
+const throttle = require('chunk-brake');
 
 
 const args = cli
@@ -58,14 +59,29 @@ const args = cli
     default: defaults.max,
     describe: 'maximum y value'
   })
+  .option('rate', {
+    alias: 'T',
+    default: defaults.rate,
+    describe: 'chunks per second read from stdin'
+  })
   .argv;
 
+function read() {
+  let s = process.stdin
+    .pipe(parse({strict: false}));
 
-process.stdin
-  .pipe(parse({strict: false}))
-  .pipe(args.slurp
-    ? concat(xy(args))
-    : map(xy(args)));
+  if (args.slurp) slurp(s)
+  else stream(s);
+}
 
+function slurp(s) {
+  s.pipe(concat(xy(args)));
+}
+
+function stream(s) {
+  s.pipe(throttle(args.rate, {objectMode: true}))
+   .pipe(map(xy(args)));
+}
 
 setInterval(noop, Math.POSITIVE_INFINITY);
+read();

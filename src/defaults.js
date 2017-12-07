@@ -7,5 +7,6 @@ module.exports = () => ({
   time: false,
   key: null,
   color: null,
-  set: []
+  set: [],
+  rate: 10
 });
