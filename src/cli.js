@@ -67,7 +67,7 @@ const args = cli
   .option('rate', {
     alias: 'r',
     default: defaults.rate,
-    describe: 'chunks per second read from stdin'
+    describe: 'number of new datapoints drawn per second'
   })
   .argv;
 
@@ -86,7 +86,7 @@ function slurp(s) {
 }
 
 function stream(s) {
-  s.pipe(throttle(args.rate, {objectMode: true}))
+  s.pipe(throttle(1000 / args.rate, {objectMode: true}))
    .pipe(map(xy(args)));
 }
 
