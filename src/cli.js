@@ -37,6 +37,11 @@ const args = cli
     type: 'boolean',
     describe: 'format x values from unix epoch milliseconds to date strings'
   })
+  .option('time-format', {
+    alias: 'T',
+    type: 'string',
+    describe: 'strftime format to use to format x values, implies --time'
+  })
   .option('x', {
     default: defaults.x,
     describe: 'property name for x values'
@@ -60,11 +65,13 @@ const args = cli
     describe: 'maximum y value'
   })
   .option('rate', {
-    alias: 'T',
+    alias: 'r',
     default: defaults.rate,
     describe: 'chunks per second read from stdin'
   })
   .argv;
+
+if(args.timeFormat) args.time = true;
 
 function read() {
   let s = process.stdin

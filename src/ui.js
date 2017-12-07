@@ -47,7 +47,9 @@ function create(opts) {
     line,
     screen,
     colors,
-    timeFormatter
+    timeFormatter: opts.timeFormat
+      ? d3.time.format(opts.timeFormat)
+      : defaultTimeFormatter
   };
 }
 
@@ -91,20 +93,18 @@ function parseYValues(ui, values, opts) {
 function parseTimeValues(ui, values, opts) {
   return values
     .map(parseDate)
-    .map(ui.timeFormatter(values));
+    .map(ui.timeFormatter);
 }
 
 
-function timeFormatter(values) {
-  return (d, i) => {
-    const v = timeDiff(d, i, values);
-    if (v < 1) return ftime.start(d);
-    else if (v < 1000) return ftime.milliseconds(d);
-    else if (v < 1000 * 60) return ftime.seconds(d);
-    else if (v < 1000 * 60 * 60) return ftime.minutes(d);
-    else if (v < 1000 * 60 * 60 * 24) return ftime.hours(d);
-    else return ftime.fallback(d);
-  };
+function defaultTimeFormatter(d, i, values) {
+  const v = timeDiff(d, i, values);
+  if (v < 1) return ftime.start(d);
+  else if (v <= 1000) return ftime.milliseconds(d);
+  else if (v <= 1000 * 60) return ftime.seconds(d);
+  else if (v <= 1000 * 60 * 60) return ftime.minutes(d);
+  else if (v <= 1000 * 60 * 60 * 24) return ftime.hours(d);
+  else return ftime.fallback(d);
 }
 
 
