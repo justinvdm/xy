@@ -52,35 +52,5 @@ describe("ui", () => {
         style: {line: 1}
       }]);
     });
-
-    it("should support time formatting", () => {
-      const uiState = {
-        colors: noop,
-        timeFormatter: () => x => `t${+x}`
-      };
-
-      const res = ui.parse(uiState, {
-        sets: [{
-          key: '__default',
-          values: [{
-            x: 21,
-            y: 2
-          }, {
-            x: 23,
-            y: 6
-          }, {
-            x: 25,
-            y: 8
-          }, {
-            x: 30,
-            y: 16
-          }]
-        }]
-      }, parseOpts({time: true}));
-
-      assert.deepEqual(map(res, 'x'), [
-        ['t21', 't23', 't25', 't30']
-      ]);
-    });
   });
 });
