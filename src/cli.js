@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 
-const cli = require('yargs');
-const xy = require('./index');
-const defaults = require('./defaults')();
-const concat = require('concat-stream');
-const { noop } = require('./utils');
-const { mapSync: map } = require('event-stream');
-const { parse } = require('ldjson-stream');
-const throttle = require('chunk-brake');
-
+const cli = require('yargs')
+const xy = require('./index')
+const defaults = require('./defaults')()
+const concat = require('concat-stream')
+const { mapSync: map } = require('event-stream')
+const { parse } = require('ldjson-stream')
+const throttle = require('chunk-brake')
 
 const args = cli
   .usage('Usage: $0 [options]')
@@ -68,27 +66,24 @@ const args = cli
     alias: 'r',
     default: defaults.rate,
     describe: 'number of new datapoints drawn per second'
-  })
-  .argv;
+  }).argv
 
-if(args.timeFormat) args.time = true;
+if (args.timeFormat) args.time = true
 
 function read() {
-  let s = process.stdin
-    .pipe(parse({strict: false}));
+  let s = process.stdin.pipe(parse({ strict: false }))
 
   if (args.slurp) slurp(s)
-  else stream(s);
+  else stream(s)
 }
 
 function slurp(s) {
-  s.pipe(concat(xy(args)));
+  s.pipe(concat(xy(args)))
 }
 
 function stream(s) {
-  s.pipe(throttle(1000 / args.rate, {objectMode: true}))
-   .pipe(map(xy(args)));
+  s.pipe(throttle(1000 / args.rate, { objectMode: true })).pipe(map(xy(args)))
 }
 
-setInterval(noop, Math.POSITIVE_INFINITY);
-read();
+setInterval(() => null, 99999)
+read()

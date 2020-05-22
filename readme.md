@@ -1,15 +1,14 @@
 # xy
+
 draw a line chart from piped in json data in the command line.
 
 ![example](https://raw.github.com/justinvdm/xy/master/example.gif)
-
 
 ## install
 
 ```
 $ npm install -g @justinvdm/xy
 ```
-
 
 ## usage
 

@@ -3,11 +3,16 @@
   "version": "0.3.0",
   "description": "draw a line chart from piped in json data in the command line",
   "main": "src/index.js",
+  "type": "commonjs",
   "bin": {
     "xy": "src/cli.js"
   },
   "scripts": {
-    "test": "mocha tests/**/*.test.js"
+    "lint": "otr lint",
+    "format": "otr format",
+    "test": "otr test",
+    "release": "otr release",
+    "checks": "yarn lint && yarn test"
   },
   "repository": {
     "type": "git",
@@ -25,20 +30,31 @@
   "bugs": {
     "url": "https://github.com/justinvdm/xy/issues"
   },
+  "oftherivier": {
+    "type": "vanilla",
+    "src": "src/index.js"
+  },
+  "renovate": {
+    "extends": [
+      "github>oftherivier/tools"
+    ]
+  },
   "homepage": "https://github.com/justinvdm/xy",
   "dependencies": {
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.8.5",
     "chunk-brake": "0.0.4",
-    "concat-stream": "^1.5.1",
-    "d3": "^3.5.16",
-    "event-stream": "^3.3.2",
+    "concat-stream": "^2.0.0",
+    "d3-scale": "^3.2.1",
+    "d3-scale-chromatic": "^1.5.0",
+    "d3-time-format": "^2.2.3",
+    "event-stream": "^4.0.1",
     "ldjson-stream": "^1.2.1",
     "lodash": "^4.9.0",
     "parse-color": "^1.0.0",
-    "yargs": "^4.4.0"
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "@oftherivier/tools": "^0.1.35"
   }
 }
