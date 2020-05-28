@@ -55,6 +55,6 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "@oftherivier/tools": "0.1.37"
+    "@oftherivier/tools": "0.1.38"
   }
 }
