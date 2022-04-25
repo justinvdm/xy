@@ -47,7 +47,7 @@
     "concat-stream": "^2.0.0",
     "d3-scale": "^3.2.1",
     "d3-scale-chromatic": "^1.5.0",
-    "d3-time-format": "^2.2.3",
+    "d3-time-format": "^4.0.0",
     "event-stream": "^4.0.1",
     "ldjson-stream": "^1.2.1",
     "lodash": "^4.9.0",
